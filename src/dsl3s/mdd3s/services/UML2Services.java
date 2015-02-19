@@ -1,4 +1,4 @@
-package mdd3s.services;
+package dsl3s.mdd3s.services;
 
 import java.io.FileWriter;
 import java.io.IOException;

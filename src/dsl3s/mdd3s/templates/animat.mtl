@@ -1,17 +1,17 @@
 [comment encoding = UTF-8 /]
-[module animat('http://www.eclipse.org/uml2/3.0.0/UML')]
-[import mdd3s::templates::services/]
+[module animat('http://www.eclipse.org/uml2/5.0.0/UML')]
+[import dsl3s::mdd3s::templates::services/]
 
 [comment
 Date: 15-06-2012    Author: Luís de Sousa
 Skeleton of the Animat class. 
 /]
 
-[import mdd3s::templates::operSupply/]
-[import mdd3s::templates::operHarvest/]
-[import mdd3s::templates::operPerish/]
-[import mdd3s::templates::operReplicate/]
-[import mdd3s::templates::operMove/]
+[import dsl3s::mdd3s::templates::operSupply/]
+[import dsl3s::mdd3s::templates::operHarvest/]
+[import dsl3s::mdd3s::templates::operPerish/]
+[import dsl3s::mdd3s::templates::operReplicate/]
+[import dsl3s::mdd3s::templates::operMove/]
 
 [template public animat(c : Class) ? (c.hasStereotype('Animat'))]
 [file (c.name.concat('.java'), false, 'UTF-8')]

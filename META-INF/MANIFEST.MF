@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Acceleo Mdd3s Module Runtime Plug-in
-Bundle-SymbolicName: dsl3s.mdd3s
-Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: mdd3s.Activator
+Bundle-SymbolicName: dsl3s.mdd3s; singleton:=true
+Bundle-Version: 0.5.0.qualifier
+Bundle-Activator: dsl3s.mdd3s.Activator
 Bundle-Vendor: Eclipse Modeling Project
 Require-Bundle: org.eclipse.core.runtime, 
  org.eclipse.uml2.uml, 
@@ -19,4 +19,6 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true
+Export-Package: dsl3s.mdd3s.services,
+ dsl3s.mdd3s.templates
 

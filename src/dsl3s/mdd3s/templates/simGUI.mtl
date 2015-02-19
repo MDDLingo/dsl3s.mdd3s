@@ -1,6 +1,6 @@
 [comment encoding = UTF-8 /]
-[module simGUI('http://www.eclipse.org/uml2/3.0.0/UML')]
-[import mdd3s::templates::services/]
+[module simGUI('http://www.eclipse.org/uml2/5.0.0/UML')]
+[import dsl3s::mdd3s::templates::services/]
 
 [comment
 Date: 09-09-2012    Author: Luís de Sousa  (luis.a.de.sousa@gmail.com)

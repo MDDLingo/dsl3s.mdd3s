@@ -8,7 +8,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package mdd3s;
+package dsl3s.mdd3s;
 
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
