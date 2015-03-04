@@ -158,8 +158,8 @@ public class Factory
 		[if (aClass.getTaggedValue(aClass, 'Spatial', 'minValue').isNull())]
 			[aClass.name/].valueMin = grid.min();
 		[/if]
-			for(int x = 0; x < rast.getWidth(); x++)
-			for(int y = 0; y < rast.getHeight(); y++)
+			for(int x = 0; x < grid.getWidth(); x++)
+			for(int y = 0; y < grid.getHeight(); y++)
 			{
 				Polygon poly = rast.toPolygon(x, y);
 				[aClass.name/] new[aClass.name/] = new [aClass.name/](grid.get(x, y), poly);
