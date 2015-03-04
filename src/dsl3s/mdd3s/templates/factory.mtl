@@ -152,6 +152,12 @@ public class Factory
 			}
 
 			DoubleGrid2D grid = (DoubleGrid2D) rast.getGrid();
+		[if (aClass.getTaggedValue(aClass, 'Spatial', 'maxValue').isNull())]
+			[aClass.name/].valueMax = grid.max();
+		[/if]
+		[if (aClass.getTaggedValue(aClass, 'Spatial', 'minValue').isNull())]
+			[aClass.name/].valueMin = grid.min();
+		[/if]
 			for(int x = 0; x < rast.getWidth(); x++)
 			for(int y = 0; y < rast.getHeight(); y++)
 			{
