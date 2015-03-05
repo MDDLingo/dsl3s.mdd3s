@@ -105,7 +105,10 @@ public class [c.name /]GUI extends GUIState {
 	public void init(Controller c)
 	{
 		super.init(c);
-		display = new Display2D(600, 600, this, afterSize);
+
+		[c.name/] sim = ([c.name/]) state;
+
+		display = new Display2D(sim.getDisplayWidth(), sim.getDisplayHeight(), this, afterSize);
 		display.setClipping(false);
 		
 		displayFrame = display.createFrame();

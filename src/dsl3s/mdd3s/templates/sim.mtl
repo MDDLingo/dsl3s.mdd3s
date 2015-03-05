@@ -30,6 +30,7 @@ public class [c.name/] extends SimState
 	public Integer spaceHeight = [c.getTaggedValue(c, 'Simulation', 'spaceHeight')/];
 	public Double  widthInterval = 1.0; 
 	public Double  heightInterval = 1.0;
+	protected Integer displayFactor = 0;
 
 	public Double getGridInterval()
 	{
@@ -40,6 +41,20 @@ public class [c.name/] extends SimState
 	public Double getGridIntervalOpen()
 	{
 		return getGridInterval() - (getGridInterval() / 100);
+	}
+
+	protected void calcDisplayFactor() { while(spaceHeight * displayFactor < 600) displayFactor++; }
+
+	public Integer getDisplayWidth()
+	{
+		if(displayFactor == 0) calcDisplayFactor();
+		return spaceWidth * displayFactor;
+	}
+
+	public Integer getDisplayHeight()
+	{
+		if(displayFactor == 0) calcDisplayFactor();
+		return spaceHeight * displayFactor;
 	}
 
 	GeometryFactory geomFactory = new GeometryFactory();
