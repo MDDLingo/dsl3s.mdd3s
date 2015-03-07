@@ -21,10 +21,8 @@ public /*abstract*/ class Variable
 	public Variable(Double val, Double min, Double max) 
 	{
 		value = val;
-		if(max != null)	valueMax = max;
-		else valueMax = Double.MAX_VALUE;	
-		if(min != null)	valueMin = min;
-		else valueMin = Double.MIN_VALUE;
+		valueMax = max;
+		valueMin = min;
 	}
 
 	public Double getValue() {return value;}
