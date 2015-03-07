@@ -163,7 +163,9 @@ public class Factory
 			{
 				Polygon poly = rast.toPolygon(x, y);
 				[aClass.name/] new[aClass.name/] = new [aClass.name/](grid.get(x, y), poly);
+              [if (aClass.getTaggedValue(aClass, 'Attribute', 'stepVar').isNotNull())]
 				new[aClass.name/].setStopper(schedule.scheduleRepeating(new[aClass.name/]));
+              [/if]
 				space.addGeometry(new[aClass.name/]);	
 			}
 		} 
