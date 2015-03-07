@@ -77,10 +77,15 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable {
 		var.setRandom(randGen);
 	}
 	
-  [if c.getTaggedValue(c, 'Spatial', 'stepVariation').isNotNull()]  
+   
 	//@Override
-	public void step(SimState state) { var.setValue(var.getValue() + stepVar); }
+	public void step(SimState state) 
+	{ 
+  [if c.getTaggedValue(c, 'Spatial', 'stepVariation').isNotNull()] 
+		var.setValue(var.getValue() + stepVar); 
   [/if]
+	}
+
 
 	[comment Makes sense? Must rethink this. /]
 	// This empty perish method facilitates things in the Animat Harvest process
