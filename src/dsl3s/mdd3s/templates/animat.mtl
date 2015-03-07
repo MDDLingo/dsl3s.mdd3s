@@ -52,7 +52,9 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable
 
 	protected static Double attribute[sClass.name/]Min = new Double([sClass.getTaggedValue(sClass, 'Attribute', 'minValue')/]);
 	protected static Double attribute[sClass.name/]Max = new Double([sClass.getTaggedValue(sClass, 'Attribute', 'maxValue')/]);
+    [if sClass.getTaggedValue(sClass, 'Attribute', 'stepVariation').isNotNull()]
 	protected static Double attribute[sClass.name/]Step = new Double([sClass.getTaggedValue(sClass, 'Attribute', 'stepVariation')/]);
+	[/if]
 
 	public Variable attribute[sClass.name/] = new Variable(
 			new Double([sClass.getTaggedValue(sClass, 'Attribute', 'initValue')/]), 
@@ -233,13 +235,15 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable
    [/for]
   [/for]
 
-		// Update attribute
+		// Update attributes
  [for (ass:Association | c.getAssociations())]
   [for (p:Element | ass.relatedElement) ]
    [let pClass: Class = p.oclAsType(Class)]
     [if (pClass.isNotNull())]
      [if (pClass.hasStereotype('Attribute'))]
+      [if pClass.getTaggedValue(pClass, 'Spatial', 'stepVariation').isNotNull()]
 		attribute[pClass.name/].add(attribute[pClass.name/]Step);
+      [/if]
 	 [/if]
     [/if]
    [/let]

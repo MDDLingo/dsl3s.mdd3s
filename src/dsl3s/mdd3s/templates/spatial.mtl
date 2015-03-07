@@ -21,8 +21,9 @@ import com.vividsolutions.jts.geom.Geometry;
 
 public class [c.name/] extends MasonGeometry implements Steppable, Stoppable {
 
-	//protected Double value = new Double(); 
+  [if c.getTaggedValue(c, 'Spatial', 'stepVariation').isNotNull()] 
 	public static  Double stepVar = new Double([c.getTaggedValue(c, 'Spatial', 'stepVariation')/]);
+  [/if]
   [if c.getTaggedValue(c, 'Spatial', 'maxValue').isNotNull()]
 	public static  Double valueMax = new Double([c.getTaggedValue(c, 'Spatial', 'maxValue')/]);
   [else]
@@ -76,9 +77,11 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable {
 		var.setRandom(randGen);
 	}
 	
+  [if c.getTaggedValue(c, 'Spatial', 'stepVariation').isNotNull()]  
 	//@Override
 	public void step(SimState state) { var.setValue(var.getValue() + stepVar); }
-	
+  [/if]
+
 	[comment Makes sense? Must rethink this. /]
 	// This empty perish method facilitates things in the Animat Harvest process
   [for (assS:Association | c.getAssociations())]
