@@ -49,9 +49,16 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable
     [if (sClass.hasStereotype('Attribute'))]
 	///////////////////////////////////////////////////////
     // Attribute: [sClass.name/]
-
+	[if sClass.getTaggedValue(sClass, 'Attribute', 'minValue').isNotNull()]
 	protected static Double attribute[sClass.name/]Min = new Double([sClass.getTaggedValue(sClass, 'Attribute', 'minValue')/]);
+    [else]
+	protected static Double attribute[sClass.name/]Min = null;
+    [/if]
+    [if sClass.getTaggedValue(sClass, 'Attribute', 'maxValue').isNotNull()]
 	protected static Double attribute[sClass.name/]Max = new Double([sClass.getTaggedValue(sClass, 'Attribute', 'maxValue')/]);
+    [else]
+	protected static Double attribute[sClass.name/]Max = null;
+    [/if]
     [if sClass.getTaggedValue(sClass, 'Attribute', 'stepVariation').isNotNull()]
 	protected static Double attribute[sClass.name/]Step = new Double([sClass.getTaggedValue(sClass, 'Attribute', 'stepVariation')/]);
 	[/if]
@@ -170,7 +177,9 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable
     [if (pClass.isNotNull())]
      [if (pClass.hasStereotype('Attribute'))]
       [if (pClass.getTaggedValue(pClass, 'Attribute', 'display') = 'true')]
+       [if pClass.getTaggedValue(pClass, 'Attribute', 'minValue').isNotNull()]
 		 	attribute[pClass.name/]Min +
+       [/if]
       [/if]
      [/if]
     [/if]
@@ -189,7 +198,9 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable
     [if (pClass.isNotNull())]
      [if (pClass.hasStereotype('Attribute'))]
       [if (pClass.getTaggedValue(pClass, 'Attribute', 'display') = 'true')]
+       [if pClass.getTaggedValue(pClass, 'Attribute', 'maxValue').isNotNull()]
 		 	attribute[pClass.name/]Max +
+       [/if]
       [/if]
      [/if]
     [/if]
