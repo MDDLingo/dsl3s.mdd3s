@@ -43,7 +43,10 @@ public class [c.name/] extends SimState
 		return getGridInterval() - (getGridInterval() / 100);
 	}
 
-	protected void calcDisplayFactor() { while(spaceHeight * displayFactor < 600) displayFactor++; }
+	[comment Arbitrary pixel height value, should be ok for non retina displays./]
+	protected void calcDisplayFactor() { while(spaceHeight * displayFactor++ < 600); }
+	
+	public Integer getDisplayFactor() { return displayFactor; } 
 
 	public Integer getDisplayWidth()
 	{

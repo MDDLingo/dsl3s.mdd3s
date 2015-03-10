@@ -85,7 +85,7 @@ public class [c.name /]GUI extends GUIState {
 	[/if]
     [if (aClass.hasStereotype('Animat'))]
 		portrayal[aClass.name/].setField(sim.space[aClass.name/]);
-		portrayal[aClass.name/].setPortrayalForAll(new [aClass.name/]Portrayal());
+		portrayal[aClass.name/].setPortrayalForAll(new [aClass.name/]Portrayal(sim.getDisplayFactor()));
 
 	[/if]
   [/let]
