@@ -27,12 +27,12 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable {
   [if c.getTaggedValue(c, 'Spatial', 'maxValue').isNotNull()]
 	public static  Double valueMax = new Double([c.getTaggedValue(c, 'Spatial', 'maxValue')/]);
   [else]
-    public static  Double valueMax = Double.MAX_VALUE;
+    public static  Double valueMax = Double.POSITIVE_INFINITY;
   [/if]
   [if c.getTaggedValue(c, 'Spatial', 'minValue').isNotNull()]
 	public static  Double valueMin = new Double([c.getTaggedValue(c, 'Spatial', 'minValue')/]);
   [else]
-    public static  Double valueMin = Double.MIN_VALUE;
+    public static  Double valueMin = Double.NEGATIVE_INFINITY;
   [/if]
 
 	protected Coordinate location;
