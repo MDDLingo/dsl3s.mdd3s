@@ -18,7 +18,7 @@ Generates the Move function to be included in the Animat class.
 	public void move([sim.name/] sim) 
 	{
 		Coordinate nextLoc = this.location;
-		Double best = Double.NEGATIVE_INFINITY;
+		Double best = - Double.MAX_VALUE;
 		HashMap<Coordinate, Double> map = new HashMap<Coordinate,Double>();
 	  [/if]
 	 [/if]

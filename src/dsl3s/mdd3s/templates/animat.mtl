@@ -52,12 +52,12 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable
 	[if sClass.getTaggedValue(sClass, 'Attribute', 'minValue').isNotNull()]
 	protected static Double attribute[sClass.name/]Min = new Double([sClass.getTaggedValue(sClass, 'Attribute', 'minValue')/]);
     [else]
-	protected static Double attribute[sClass.name/]Min = Double.NEGATIVE_INFINITY;
+	protected static Double attribute[sClass.name/]Min = - Double.MAX_VALUE;
     [/if]
     [if sClass.getTaggedValue(sClass, 'Attribute', 'maxValue').isNotNull()]
 	protected static Double attribute[sClass.name/]Max = new Double([sClass.getTaggedValue(sClass, 'Attribute', 'maxValue')/]);
     [else]
-	protected static Double attribute[sClass.name/]Max = Double.POSITIVE_INFINITY;
+	protected static Double attribute[sClass.name/]Max = Double.MAX_VALUE;
     [/if]
     [if sClass.getTaggedValue(sClass, 'Attribute', 'stepVariation').isNotNull()]
 	protected static Double attribute[sClass.name/]Step = new Double([sClass.getTaggedValue(sClass, 'Attribute', 'stepVariation')/]);
