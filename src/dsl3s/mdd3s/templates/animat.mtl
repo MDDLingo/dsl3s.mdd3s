@@ -15,7 +15,8 @@ Skeleton of the Animat class.
 
 [template public animat(c : Class) ? (c.hasStereotype('Animat'))]
 [file (c.name.concat('.java'), false, 'UTF-8')]
-
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import ec.util.MersenneTwisterFast;
 import sim.engine.SimState;

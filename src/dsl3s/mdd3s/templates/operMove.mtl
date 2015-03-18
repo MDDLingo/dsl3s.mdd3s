@@ -56,7 +56,6 @@ Generates the Move function to be included in the Animat class.
 			current += weight[mClass.name/] * (([aClass.name/]) obj).attribute[seClass.name/].getValue();
 			map.put(objLocation, current);
 		}
-
 	       [/if]
 	      [/if]
          [/let]
@@ -77,7 +76,6 @@ Generates the Move function to be included in the Animat class.
 			current += weight[mClass.name/] * (([seClass.name/]) obj).getValue();
 			map.put(objLocation, current);
 		}
-
 	   [/if]
 	  [/if]
      [/let]
@@ -89,21 +87,25 @@ Generates the Move function to be included in the Animat class.
  [/for]	 
 [/for] [comment Moves /]
 
-		for(Coordinate c : map.keySet())
-		{
-			if(map.get(c) > best)
-			{
-				best = map.get(c);
-				nextLoc = c;
-			}
-		}
-
+ 		List<Coordinate> candidates = new ArrayList<Coordinate>();
+ 		for(Coordinate c : map.keySet())
+ 		{
+ 			if(map.get(c) >= best)
+ 			{
+ 				if(map.get(c) > best)
+ 				{
+	 				best = map.get(c);
+	 				candidates.clear();
+ 				}
+ 				candidates.add(c);
+ 			}
+ 		}
+ 		nextLoc = candidates.get(sim.random.nextInt(candidates.size()));
 
  [if c.getTaggedValue(c, 'Animat', 'stop').isNotNull()]
  		// Stop if goal achieved
 		if(best >= stopGoal) return;
  [/if]
-
  [if (c.getTaggedValue(c, 'Animat', 'wanderer') = 'true')]
 		// Wander if nothing interesting around
 		if((nextLoc.x == location.x) && (nextLoc.y == location.y))
