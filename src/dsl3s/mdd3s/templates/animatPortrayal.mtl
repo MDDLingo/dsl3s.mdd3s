@@ -42,7 +42,8 @@ public class [c.name/]Portrayal extends OvalPortrayal2D
 		// Some MasonGeometries are kept alive after being stopped.
 		// Possibly a GeoMason bug.
 		if(obj.Stopped()) return;
-	    double val = obj.getDisplayValue();
+	    Double val = obj.getDisplayValue();
+		if (val.equals(Double.NaN)) return;
 	    paint = map.getColor(val);
 	    super.draw(object, graphics, info);
     }

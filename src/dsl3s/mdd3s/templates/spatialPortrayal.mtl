@@ -33,7 +33,8 @@ public class [c.name/]Portrayal extends GeomPortrayal {
 	public void draw(Object object, Graphics2D graphics, DrawInfo2D info)
     {
 		[c.name/] obj = ([c.name/]) object;
-	    double val = obj.getValue();
+	    Double val = obj.getValue();
+		if (val.equals(Double.NaN)) return;
 	    paint = map.getColor(val);
 	    super.draw(object, graphics, info);
     }
