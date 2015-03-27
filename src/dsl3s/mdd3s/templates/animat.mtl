@@ -30,7 +30,6 @@ import com.vividsolutions.jts.geom.Geometry;
 
 public class [c.name/] extends MasonGeometry implements Steppable, Stoppable 
 {
-	protected Double wanderScope = 1.0;
  [if c.getTaggedValue(c, 'Animat', 'stop').isNotNull()]
  	protected Double stopGoal = new Double([c.getTaggedValue(c, 'Animat', 'stop')/]);
  [/if]
@@ -40,9 +39,6 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable
 		super();
 		this.geometry = geom;
 		location = geom.getCentroid().getCoordinate();
-		if (widthInterval > heightInterval) 
-			wanderScope = widthInterval * 1.5;
-		else  wanderScope = heightInterval * 1.5;
 	}
 	
  [comment Iterate through linked Attributes /]
@@ -297,9 +293,9 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable
 
  [c.operReplicate() /]
 
-	protected double randMove(double val, MersenneTwisterFast randGen) 
+	protected double randMove(double val, MersenneTwisterFast randGen, Double scope) 
 	{
-		return val + (randGen.nextDouble() - randGen.nextDouble()) * wanderScope;
+		return val + (randGen.nextDouble() - randGen.nextDouble()) * scope;
 	}
 
 }
