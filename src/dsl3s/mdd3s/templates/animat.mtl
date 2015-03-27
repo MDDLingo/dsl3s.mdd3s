@@ -147,8 +147,7 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable
     [if (pClass.isNotNull())]
      [if (pClass.hasStereotype('Move'))]
 	protected static Double weight[pClass.name/] = new Double([pClass.getTaggedValue(pClass, 'Move', 'weight')/]);
-    [comment Movement scope must be taken into account in the future/]
-	protected static Double scope[pClass.name/] = 1.5[comment pClass.getTaggedValue(pClass, 'Move', 'scope')/];
+	protected static Double scope[pClass.name/] = new Double([pClass.getTaggedValue(pClass, 'Move', 'scope')/]);
      [/if]
     [/if]
    [/let]
