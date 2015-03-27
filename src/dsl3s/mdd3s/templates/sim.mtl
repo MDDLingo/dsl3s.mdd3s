@@ -35,7 +35,7 @@ public class [c.name/] extends SimState
 	protected Integer displayFactor = 0;
 
 	[comment Arbitrary pixel height value, should be ok for non retina displays./]
-	protected void calcDisplayFactor() { while(spaceHeight * displayFactor++ < 600); }
+	protected void calcDisplayFactor() { while(spaceHeight * ++displayFactor < 500); }
 	
 	public Integer getDisplayFactor() { return displayFactor; } 
 
