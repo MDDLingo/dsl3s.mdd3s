@@ -40,6 +40,9 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable
 		super();
 		this.geometry = geom;
 		location = geom.getCentroid().getCoordinate();
+		if (widthInterval > heightInterval) 
+			wanderScope = widthInterval * 1.5;
+		else  wanderScope = heightInterval * 1.5;
 	}
 	
  [comment Iterate through linked Attributes /]
