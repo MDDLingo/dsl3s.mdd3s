@@ -31,7 +31,7 @@ public class [c.name/] extends SimState
 	public Double  widthInterval = 1.0; 
 	public Double  heightInterval = 1.0;
 	public Double  gridInterval = 1.0;
-    public Double  girdIntervalOpen = 1.0;
+    public Double  gridIntervalOpen = 1.0;
 	protected Integer displayFactor = 0;
 
 	[comment Arbitrary pixel height value, should be ok for non retina displays./]
