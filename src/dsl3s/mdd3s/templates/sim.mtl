@@ -30,18 +30,9 @@ public class [c.name/] extends SimState
 	public Integer spaceHeight = [c.getTaggedValue(c, 'Simulation', 'spaceHeight')/];
 	public Double  widthInterval = 1.0; 
 	public Double  heightInterval = 1.0;
+	public Double  gridInterval = 1.0;
+    public Double  girdIntervalOpen = 1.0;
 	protected Integer displayFactor = 0;
-
-	public Double getGridInterval()
-	{
-		if(widthInterval > heightInterval) return widthInterval;
-		else return heightInterval;
-	}
-
-	public Double getGridIntervalOpen()
-	{
-		return getGridInterval() - (getGridInterval() / 100);
-	}
 
 	[comment Arbitrary pixel height value, should be ok for non retina displays./]
 	protected void calcDisplayFactor() { while(spaceHeight * displayFactor++ < 600); }
@@ -194,7 +185,10 @@ public class [c.name/] extends SimState
 		widthInterval = globalMBR.getWidth() / spaceWidth;
 		heightInterval = globalMBR.getWidth() / spaceHeight;
 
-
+		if(widthInterval > heightInterval) gridInterval = widthInterval;
+		else gridInterval = heightInterval;
+		[comment Why is this 100? /]
+		gridIntervalOpen = gridInterval - (gridInterval / 100); 
 
  [for (assA:Association | c.getAssociations())]
   [for (a:Element | assA.relatedElement) ]

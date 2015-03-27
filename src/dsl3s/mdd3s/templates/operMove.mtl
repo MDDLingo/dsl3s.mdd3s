@@ -111,8 +111,8 @@ Generates the Move function to be included in the Animat class.
 		if((nextLoc.x == location.x) && (nextLoc.y == location.y))
 		{
 			nextLoc = new Coordinate(
-				randMove(location.x, sim.random),
-				randMove(location.y, sim.random));
+				randMove(location.x, sim.random, sim.gridInterval * 1.5),
+				randMove(location.y, sim.random, sim.gridInterval * 1.5));
 		}
  [/if]
 
