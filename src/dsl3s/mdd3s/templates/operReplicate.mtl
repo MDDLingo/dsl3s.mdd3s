@@ -44,8 +44,8 @@ Issues:
 		if (attribute[sClass.name/].getValue() > upperThresh[rClass.name/]) 
 		{
 			[c.name/] new[c.name/] = sim.create[c.name/]( 
-					randMove(location.x, sim.random), 
-					randMove(location.y, sim.random));
+					randMove(location.x, sim.random, sim.gridInterval), 
+					randMove(location.y, sim.random, sim.gridInterval));
            [if rClass.getTaggedValue(rClass, 'Replicate', 'inheritance').isNotNull()]
 			new[c.name/].attribute[sClass.name/].setValue(inheritance[rClass.name/]);
            [/if]
@@ -57,8 +57,8 @@ Issues:
 		if (attribute[sClass.name/].getValue() < lowerThresh[rClass.name/]) 
 		{
 			[c.name/] new[c.name/] = sim.create[c.name/]( 
-					randMove(location.x, sim.random), 
-					randMove(location.y, sim.random));
+					randMove(location.x, sim.random, sim.gridInterval), 
+					randMove(location.y, sim.random, sim.gridInterval));
 		 [if rClass.getTaggedValue(rClass, 'Replicate', 'inheritance').isNotNull()]
 			new[c.name/].attribute[sClass.name/].setValue(inheritance[rClass.name/]);
          [/if]
