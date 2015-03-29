@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Acceleo Mdd3s Module Runtime Plug-in
+Bundle-Name: MDD3S
 Bundle-SymbolicName: dsl3s.mdd3s; singleton:=true
-Bundle-Version: 0.5.0.qualifier
+Bundle-Version: 0.6.0.qualifier
 Bundle-Activator: dsl3s.mdd3s.Activator
-Bundle-Vendor: Eclipse Modeling Project
+Bundle-Vendor: Luís de Sousa - Instituto Superior Técnico
 Require-Bundle: org.eclipse.core.runtime, 
  org.eclipse.uml2.uml, 
  org.eclipse.emf.ecore,
