@@ -100,7 +100,8 @@ Generates the Move function to be included in the Animat class.
  				candidates.add(c);
  			}
  		}
- 		nextLoc = candidates.get(sim.random.nextInt(candidates.size()));
+		if(candidates.size() > 0)
+ 			nextLoc = candidates.get(sim.random.nextInt(candidates.size()));
 
  [if c.getTaggedValue(c, 'Animat', 'stop').isNotNull()]
  		// Stop if goal achieved
