@@ -376,7 +376,3 @@ public class [c.name/] extends SimState
 }
 [/file]
 [/template]
-
-[template public sim(aClass : Class)]
-
-[/template]
