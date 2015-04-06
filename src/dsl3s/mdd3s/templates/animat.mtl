@@ -251,7 +251,7 @@ public class [c.name/] extends MasonGeometry implements Steppable, Stoppable
    [let pClass: Class = p.oclAsType(Class)]
     [if (pClass.isNotNull())]
      [if (pClass.hasStereotype('Attribute'))]
-      [if pClass.getTaggedValue(pClass, 'Spatial', 'stepVariation').isNotNull()]
+      [if pClass.getTaggedValue(pClass, 'Attribute', 'stepVariation').isNotNull()]
 		attribute[pClass.name/].add(attribute[pClass.name/]Step);
       [/if]
 	 [/if]
