@@ -9,6 +9,93 @@ Generates the Move function to be included in the Animat class.
 
 [template public operMove(c : Class) ? (c.hasStereotype('Animat'))]
 	
+ 	protected Geometry createScopeGeometry(Double scope)
+ 	{
+ 		GeometricShapeFactory shapeFactory = new GeometricShapeFactory();
+		shapeFactory.setCentre(this.location);
+		shapeFactory.setWidth(2 * scope);
+		shapeFactory.setHeight(2 * scope);
+		return shapeFactory.createCircle();
+ 	}
+
+ 	protected HashMap<Geometry,Double> intersectFeaturesInScope(HashMap<Geometry,Double> nextMap)
+ 	{
+ 		HashMap<Geometry,Double> origMap = new HashMap<Geometry,Double>();
+		HashMap<Geometry,Double> finalMap = new HashMap<Geometry,Double>();
+		
+		while(nextMap.size() > 0)
+		{
+			origMap = nextMap;
+			nextMap = new HashMap<Geometry,Double>();	
+			// 1. Pop a feature from the first hash map
+			Geometry thisFeature = (Geometry) origMap.keySet().toArray()['['/]0[']'/];
+			Double thisValue = (Double) origMap.remove(thisFeature);
+			// 2. Loop over the remainder of the first hash map 
+			while(origMap.size() > 0)
+			{
+				// 3. Pop another feature and intersect
+				Geometry secondFeature = (Geometry) origMap.keySet().toArray()['['/]0[']'/];
+				Double secondValue = (Double) origMap.remove(secondFeature);
+				Geometry intersection = thisFeature.intersection(secondFeature);
+				// 4. If intersection is void push second feature to second hash map and continue
+				if ((intersection.isEmpty()) ||
+				    (intersection.getArea() <= 0 && thisFeature.getArea() > 0 && secondFeature.getArea() > 0))
+					nextMap.put(secondFeature, secondValue);
+					
+	 			else
+				{
+					// 5. Push differences with original values to second hash map and continue
+	 				Geometry thisDiff = thisFeature.difference(secondFeature);
+					if(! thisDiff.isEmpty()) nextMap.put(thisDiff, thisValue);
+					Geometry secondDiff = secondFeature.difference(thisFeature);
+					if(! secondDiff.isEmpty()) nextMap.put(secondDiff, secondValue);
+					// 6. Sum values to intersect and discard original feature
+					thisValue += secondValue;
+					thisFeature = intersection;
+				}
+			}
+			finalMap.put(thisFeature, thisValue);
+		}
+		return finalMap;
+ 	}
+
+[comment Iterate through linked Moves /]
+[for (assM:Association | c.getAssociations())]
+ [for (m:Element | assM.relatedElement) ]
+ [let mClass: Class = m.oclAsType(Class)] 
+  [if (mClass.isNotNull())]
+   [if (mClass.hasStereotype('Move'))]
+    [comment Iterate through linked Spatial /]
+	[for (assSE:Association | mClass.getAssociations())]
+  	 [for (se:Element | assSE.relatedElement) ]
+     [let seClass: Class = se.oclAsType(Class)]
+      [if (seClass.isNotNull())]
+       [if (seClass.hasStereotype('Spatial'))]
+ 	protected void add[seClass.name/]InScope(HashMap<Geometry,Double> map, Bag neighbours)
+ 	{
+ 		Geometry scope = createScopeGeometry(scope[mClass.name/]);
+ 		for (Object obj : neighbours) 
+ 		{	
+ 			Geometry full_geom = (([seClass.name/]) obj).geometry;
+ 			Geometry geom = full_geom.intersection(scope);
+ 			Double current = map.get(geom);
+ 			if(current == null) current = 0.0;
+ 			current += weight[mClass.name/] * (([seClass.name/]) obj).getValue();
+ 			map.put(geom, current);
+ 		}
+ 	}
+
+	   [/if]
+	  [/if]
+     [/let]
+     [/for]	 
+    [/for] [comment Attributes & Environements /]
+   [/if]
+  [/if]
+ [/let]
+ [/for]	 
+[/for] [comment Moves /]
+
  [comment Get Simulation name /]
   [for (assS:Association | c.getAssociations())]
    [for (e:Element | assS.relatedElement) ]
@@ -17,9 +104,10 @@ Generates the Move function to be included in the Animat class.
 	  [if (sim.hasStereotype('Simulation'))]
 	public void move([sim.name/] sim) 
 	{
-		Coordinate nextLoc = this.location;
-		Double best = - Double.MAX_VALUE;
-		HashMap<Coordinate, Double> map = new HashMap<Coordinate,Double>();
+ 		Coordinate nextLoc = this.location;
+ 		Double best = Double.NEGATIVE_INFINITY;
+		HashMap<Geometry,Double> map = new HashMap<Geometry,Double>();
+
 	  [/if]
 	 [/if]
     [/let]
@@ -44,18 +132,19 @@ Generates the Move function to be included in the Animat class.
          [let aClass: Class = a.oclAsType(Class)]
           [if (aClass.isNotNull())]
            [if (aClass.hasStereotype('Animat'))]
-
 		// Iterate [aClass.name/] neighbourhood
+		Geometry scopeGeom[aClass.name/] = createScopeGeometry(scopeFlow);
 		Bag neigh[aClass.name/] = sim.space[aClass.name/].getObjectsWithinDistance(this, scope[mClass.name/]);
-		
 		for (Object obj : neigh[aClass.name/]) 
 		{
-			Coordinate objLocation = (([aClass.name/]) obj).getLocation();
-			Double current = map.get(objLocation);
+			Geometry full_geom = (([aClass.name/]) obj).getLocation();
+			Geometry geom = full_geom.intersection(scopeGeom[aClass.name/]);
+			Double current = map.get(geom);
 			if(current == null) current = 0.0;
 			current += weight[mClass.name/] * (([aClass.name/]) obj).attribute[seClass.name/].getValue();
-			map.put(objLocation, current);
+			map.put(geom, current);
 		}
+
 	       [/if]
 	      [/if]
          [/let]
@@ -64,18 +153,7 @@ Generates the Move function to be included in the Animat class.
        [/if]
        [comment If it is linked to an Spatial Variable /]
        [if (seClass.hasStereotype('Spatial'))]
-
-		// Iterate [seClass.name/] neighbourhood
-		Bag neigh[seClass.name/] = sim.space[seClass.name/].getObjectsWithinDistance(this, scope[mClass.name/]);
-		
-		for (Object obj : neigh[seClass.name/]) 
-		{	
-			Coordinate objLocation = (([seClass.name/]) obj).getLocation();
-			Double current = map.get(objLocation);
-			if(current == null) current = 0.0;
-			current += weight[mClass.name/] * (([seClass.name/]) obj).getValue();
-			map.put(objLocation, current);
-		}
+		add[seClass.name/]InScope(map, sim.space[seClass.name/].getObjectsWithinDistance(this, scope[mClass.name/]));
 	   [/if]
 	  [/if]
      [/let]
@@ -87,22 +165,23 @@ Generates the Move function to be included in the Animat class.
  [/for]	 
 [/for] [comment Moves /]
 
- 		List<Coordinate> candidates = new ArrayList<Coordinate>();
- 		for(Coordinate c : map.keySet())
- 		{
- 			if(map.get(c) >= best)
- 			{
- 				if(map.get(c) > best)
- 				{
-	 				best = map.get(c);
-	 				candidates.clear();
- 				}
- 				candidates.add(c);
- 			}
- 		}
-		if(candidates.size() > 0)
- 			nextLoc = candidates.get(sim.random.nextInt(candidates.size()));
+		map = intersectFeaturesInScope(map); 
 
+ 		List<Geometry> candidates = new ArrayList<Geometry>();
+  		for(Geometry geom : map.keySet())
+  		{
+  			if(map.get(geom) > best)
+			{
+ 				best = map.get(geom);
+ 				candidates.clear();
+ 				candidates.add(geom);
+			}
+  			else if(map.get(geom).equals(best))
+  				candidates.add(geom);
+  		}
+ 		if(candidates.size() > 0)
+  			nextLoc = candidates.get(sim.random.nextInt(candidates.size())).getCentroid().getCoordinate();
+ 
  [if c.getTaggedValue(c, 'Animat', 'stop').isNotNull()]
  		// Stop if goal achieved
 		if(best >= stopGoal) return;
