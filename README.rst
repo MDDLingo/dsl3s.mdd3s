@@ -4,7 +4,7 @@ Domain Specific Language for Spatial Simulation Scenarios - DSL3S
 Copyright
 --------------------------------------------------------------------------------------
 
-Copyright 2010 - 2014 Instituto Superior Técnico. All rights reserved. 
+Copyright 2010 - 2015 Instituto Superior Técnico. All rights reserved. 
 Any use of this software constitutes full acceptance of all terms of the 
 software's license.
 
