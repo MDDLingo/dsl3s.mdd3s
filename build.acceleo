@@ -2,7 +2,7 @@
 <!-- Custom targets.                                                       -->
 <!-- Set customBuildCallbacks = build.acceleo in your build.properties.    -->
 <!-- ===================================================================== -->
-<project name="MDD3S" default="noDefault">    
+<project name="Build Acceleo Module" default="noDefault">    
     <!-- ================================================================= -->
     <!-- Default target                                                    -->
     <!-- ================================================================= -->
@@ -18,7 +18,7 @@
         <acceleoCompiler 
             sourceFolder="${target.folder}"
             outputFolder="${target.folder}"
-            dependencies="${target.folder}/../../com.asml.innovation.sysml.metrics;"
+            dependencies=""
             binaryResource="false"
             packagesToRegister="">
         </acceleoCompiler>
