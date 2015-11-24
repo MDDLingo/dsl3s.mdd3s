@@ -45,13 +45,17 @@ Generates the Move function to be included in the Animat class.
 	 			else
 				{
 					// 5. Push differences with original values to second hash map and continue
-	 				Geometry thisDiff = thisFeature.difference(secondFeature);
-					if(! thisDiff.isEmpty()) nextMap.put(thisDiff, thisValue);
 					Geometry secondDiff = secondFeature.difference(thisFeature);
 					if(! secondDiff.isEmpty()) nextMap.put(secondDiff, secondValue);
-					// 6. Sum values to intersect and discard original feature
-					thisValue += secondValue;
-					thisFeature = intersection;
+	 				Geometry thisDiff = thisFeature.difference(secondFeature);
+ 	 				if (thisDiff.getDimension() <= intersection.getDimension())
+ 	 				{
+						if(! thisDiff.isEmpty()) nextMap.put(thisDiff, thisValue);
+						
+						// 6. Sum values to intersect and discard original feature
+						thisValue += secondValue;
+						thisFeature = intersection;
+					}
 				}
 			}
 			finalMap.put(thisFeature, thisValue);
@@ -78,10 +82,13 @@ Generates the Move function to be included in the Animat class.
  		{	
  			Geometry full_geom = (([seClass.name/]) obj).geometry;
  			Geometry geom = full_geom.intersection(scope);
- 			Double current = map.get(geom);
- 			if(current == null) current = 0.0;
- 			current += weight[mClass.name/] * (([seClass.name/]) obj).getValue();
- 			map.put(geom, current);
+  			if(! geom.isEmpty()) 
+  			{
+	 			Double current = map.get(geom);
+	 			if(current == null) current = 0.0;
+	 			current += weight[mClass.name/] * (([seClass.name/]) obj).getValue();
+	 			map.put(geom, current);
+			}
  		}
  	}
 
@@ -133,16 +140,19 @@ Generates the Move function to be included in the Animat class.
           [if (aClass.isNotNull())]
            [if (aClass.hasStereotype('Animat'))]
 		// Iterate [aClass.name/] neighbourhood
-		Geometry scopeGeom[aClass.name/] = createScopeGeometry(scopeFlow);
+		Geometry scopeGeom[aClass.name/] = createScopeGeometry(scope[mClass.name/]);
 		Bag neigh[aClass.name/] = sim.space[aClass.name/].getObjectsWithinDistance(this, scope[mClass.name/]);
 		for (Object obj : neigh[aClass.name/]) 
 		{
-			Geometry full_geom = (([aClass.name/]) obj).getLocation();
+			Geometry full_geom = (([aClass.name/]) obj).geometry;
 			Geometry geom = full_geom.intersection(scopeGeom[aClass.name/]);
-			Double current = map.get(geom);
-			if(current == null) current = 0.0;
-			current += weight[mClass.name/] * (([aClass.name/]) obj).attribute[seClass.name/].getValue();
-			map.put(geom, current);
+  			if(! geom.isEmpty()) 
+  			{
+				Double current = map.get(geom);
+				if(current == null) current = 0.0;
+				current += weight[mClass.name/] * (([aClass.name/]) obj).attribute[seClass.name/].getValue();
+				map.put(geom, current);
+			}
 		}
 
 	       [/if]
